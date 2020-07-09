@@ -42,8 +42,4 @@ export class UserService {
     return this.fireStore.doc('users/' + this.selectedUser.id).update(user);
   }
 
-  // updateUser(user) {
-  //   return this.fireStore.
-  // }
-
 }
