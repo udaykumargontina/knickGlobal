@@ -1,0 +1,55 @@
+<mat-toolbar color="primary">
+  <div class="welcome-text">
+    <span *ngIf="userService.selectedUser.id !== ''">Welcome! {{userName}}</span>
+    <span *ngIf="userService.selectedUser.id === ''">Welcome Guest</span>
+</div>&nbsp;
+<div class="logout-button" *ngIf="userService.selectedUser.id !== ''" (click)="logoutClicked()"> Logout</div>
+<div class="login-button" *ngIf="userService.selectedUser.id === ''" (click)="loginClicked()"> Login</div>
+</mat-toolbar>
+<div class="container">
+    <h1 *ngIf="userService.selectedUser.id === ''">Register</h1>
+    <h1 *ngIf="userService.selectedUser.id !== ''">Update User</h1>
+
+		<form [formGroup]="registrationForm">
+			<div class="form-group">
+				<label>First Name*</label>
+				<input class="form-control" formControlName="firstName" type="text" [(ngModel)]="userService.selectedUser.data['firstName']"/>
+			</div>
+			<div class="error-messages">
+        <ng-container *ngIf="!registrationForm.controls.firstName.valid && registrationForm.controls.firstName.touched">FirstName is required</ng-container>
+			</div>
+
+			<div class="form-group">
+				<label>Last Name</label>
+				<input class="form-control" formControlName="lastName" type="text" [(ngModel)]="userService.selectedUser.data['lastName']"/>
+			</div>
+
+			<div class="form-group">
+				<label>Email Id*</label>
+				<input class="form-control" formControlName="email" type="text" [(ngModel)]="userService.selectedUser.data['email']"/>
+			</div>
+			<div class="error-messages">
+        <ng-container *ngIf="!registrationForm.controls.email.valid  && registrationForm.controls.email.touched">Email is InValid</ng-container>
+			</div>
+
+			<div class="form-group">
+				<label>Password*</label>
+				<input class="form-control" formControlName="password" type="password" [(ngModel)]="userService.selectedUser.data['password']"/>
+			</div>
+			<div class="error-messages">
+        <ng-container *ngIf="!registrationForm.controls.password.valid  && registrationForm.controls.password.touched && registrationForm.controls.password.value.length < 6">Password min Length should be 6</ng-container>
+        <ng-container *ngIf="!registrationForm.controls.password.valid  && registrationForm.controls.password.touched">Password is required</ng-container>
+			</div>
+
+			<div class="form-group">
+				<label>Confirm Password*</label>
+				<input class="form-control" formControlName="confirmPassword" type="password" (keyup)="onKeyUp()" [(ngModel)]="userService.selectedUser.data['confirmPassword']"/>
+			</div>
+			<div class="error-messages">
+        <ng-container *ngIf="!registrationForm.controls.confirmPassword.valid && registrationForm.controls.confirmPassword.touched">ConfirmPassword is required</ng-container>
+        <ng-container *ngIf="confirmPasswordNotMatched">Password not matched</ng-container>
+			</div>
+      <button class="form-control btn btn-primary" *ngIf="!userService.selectedUser.id" [disabled]="!registrationForm.valid" (click)="registrationClicked()">Register</button>
+      <button class="form-control btn btn-primary" *ngIf="userService.selectedUser.id" [disabled]="!registrationForm.valid" (click)="registrationClicked()">Update</button>
+		</form>
+</div>

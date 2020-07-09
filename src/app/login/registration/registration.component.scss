@@ -1,0 +1,28 @@
+.registration-form {
+  max-width: 500px;
+  margin-left: 100px;
+  margin-top: 20px;
+  border: 1px solid #BFBFBF;
+  background-color: white;
+  padding: 50px;
+  box-shadow: 5px 5px 5px #aaaaaa;
+}
+.container {
+  padding: 20px;
+    max-width: 450px;
+    border: 1px solid #BFBFBF;
+    margin-top: 15px;
+}
+.logout-button{
+  cursor: pointer;
+  background-color: black;
+  padding: 15px;
+}
+.error-messages {
+  color: red;
+}
+.login-button{
+  cursor: pointer;
+  background-color: black;
+  padding: 15px;
+}
