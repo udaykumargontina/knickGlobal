@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit {
   loggedInUser;
   userName;
 
-  constructor(private userService: UserService,
+  constructor(public userService: UserService,
     private router: Router,
     private _snackBar: MatSnackBar,
     private authenticationService: AuthenticationService,
