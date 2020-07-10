@@ -1,0 +1,27 @@
+.avatar {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  top: calc(-65px);
+  left: calc(38%);
+}
+
+.container-form {
+      transform: translate(-50%, 40%);
+      width: 400px;
+}
+.btn-danger {
+  border-radius: 25px;
+}
+mat-icon.input-custom-icon {
+  position: absolute;
+  left: 0;
+  top: 28px;
+}
+input.form-control {
+  padding-left: 30px;
+}
+.form-group {
+  position: relative;
+}
