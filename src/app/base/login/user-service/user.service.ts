@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 
 @Injectable()
 export class UserService {
@@ -17,11 +18,13 @@ export class UserService {
       lastName: '',
       email: '',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      imageUrl: ''
     }
   };
 
   userName;
+
 
   constructor(private fireStore: AngularFirestore) {
     this.initDataStorage();

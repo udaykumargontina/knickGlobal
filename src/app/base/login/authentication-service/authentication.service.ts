@@ -12,9 +12,8 @@ export class AuthenticationService {
   isLoggedIn: boolean = false;
   isRegistrationPage: boolean = false;
 
-  login(email: string, password: string): Observable<any> {
-    return this.fireStore.collection('users', ref => ref.where('email', '==', email )
-    .where('password', '==', password)).snapshotChanges();
+  login(email: string): Observable<any> {
+    return this.fireStore.collection('users', ref => ref.where('email', '==', email )).snapshotChanges();
   }
 
   logout() {
@@ -26,7 +25,8 @@ export class AuthenticationService {
         lastName: '',
         email: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        imageUrl: ''
       }
     };
     localStorage.clear();

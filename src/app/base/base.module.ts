@@ -17,6 +17,8 @@ import { BaseComponent } from './base.component';
     ReactiveFormsModule,
     BaseRoutingModule,
     MaterialModule
+
+
   ],
   providers: [
   ],

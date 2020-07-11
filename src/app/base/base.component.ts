@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 })
 export class BaseComponent implements OnInit {
 
+  imageSrc: string = "/assets/dummyuser.png";
+
   constructor(public userService: UserService, private router: Router,
               public authenticationService: AuthenticationService) {
   }
@@ -33,6 +35,10 @@ export class BaseComponent implements OnInit {
 
   logoutClicked() {
     this.authenticationService.logout();
+  }
+
+  dashboardClicked() {
+    this.router.navigate(['/dashboard']);
   }
 
 }

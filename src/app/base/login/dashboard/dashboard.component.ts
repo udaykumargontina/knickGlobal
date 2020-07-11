@@ -13,6 +13,7 @@ export interface UserDetails {
     lastName: number;
     email: number;
     password: string;
+    imageUrl: string;
   }
 }
 

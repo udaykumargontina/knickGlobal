@@ -1,11 +1,13 @@
 <mat-toolbar color="primary">
-  <img />
+  <button class="dashboard-btn btn btn-default"  *ngIf="authenticationService.isLoggedIn" (click)="dashboardClicked()"><mat-icon>home</mat-icon></button>
+ <div class="profile-pic" *ngIf="authenticationService.isLoggedIn"><img [src]="userService.loggedInUser['data']['imageUrl']"></div>
   <span class="fill-remaining-space" *ngIf="authenticationService.isLoggedIn">Welcome:&nbsp; {{userService.userName}}</span>
   <span class="fill-remaining-space" *ngIf="!authenticationService.isLoggedIn">Welcome: Guest</span>
   <button class="navbar-button btn btn-default"  *ngIf="!authenticationService.isLoggedIn  && authenticationService.isRegistrationPage" (click)="loginClicked()">Login</button>
   <button class="navbar-button btn btn-default"  *ngIf="!authenticationService.isLoggedIn && !authenticationService.isRegistrationPage" (click)="signUpClicked()">Sign Up</button>
+
   <button class="navbar-button btn btn-default"  *ngIf="authenticationService.isLoggedIn" (click)="logoutClicked()">Logout</button>
 </mat-toolbar>
-<div class="login-banner" style="background-image: url('assets/login-page.jpg');">
+
   <router-outlet></router-outlet>
-</div>
+

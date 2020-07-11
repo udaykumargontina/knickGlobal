@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { AuthenticationService } from "../authentication-service/authentication.service";
 import { MatSnackBar } from "@angular/material";
 import { UserService } from "../user-service/user.service";
+import * as bcrypt from "bcryptjs";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-login",
@@ -14,6 +16,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
   submitted = false;
+  loginSubscription: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -36,6 +39,7 @@ export class LoginComponent implements OnInit {
         email: "",
         password: "",
         confirmPassword: "",
+        imageUrl: ""
       },
     };
     this.loginForm = this.formBuilder.group({
@@ -62,28 +66,51 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this.authenticationService
-      .login(this.loginForm.value["email"], this.loginForm.value["password"])
+    this.loginSubscription = this.authenticationService
+      .login(this.loginForm.value["email"])
       .subscribe((data) => {
         if (data.length > 0) {
-          this.authenticationService.isLoggedIn = true;
-          this.userService.selectedUser = {
-            id: data[0].payload.doc.id,
-            data: data[0].payload.doc.data(),
-          };
-          localStorage.setItem(
-            "userDetails",
-            JSON.stringify({
-              id: data[0].payload.doc.id,
-              data: data[0].payload.doc.data(),
-            })
+          bcrypt.compare(
+            this.loginForm.value["password"],
+            data[0].payload.doc.data().password,
+            (err, result) => {
+              if (result) {
+                this.userService.selectedUser = {
+                  id: data[0].payload.doc.id,
+                  data: data[0].payload.doc.data(),
+                };
+                this.authenticationService.isLoggedIn = true;
+                this.userService.loggedInUser = this.userService.selectedUser;
+                localStorage.setItem(
+                  "userDetails",
+                  JSON.stringify({
+                    id: data[0].payload.doc.id,
+                    data: data[0].payload.doc.data(),
+                  })
+                );
+                this.userService.userName =
+                  this.userService.selectedUser.data.firstName +
+                  " " +
+                  this.userService.selectedUser.data.lastName;
+                this.loading = false;
+                this.loginSubscription.unsubscribe();
+                this.router.navigate(["/dashboard"]);
+              } else {
+                this.snackBar.open("Invalid Credentials", "", {
+                  duration: 2000,
+                });
+                this.loading = false;
+              }
+              if (err) {
+                this.snackBar.open(err, "", {
+                  duration: 2000,
+                });
+                this.loginSubscription.unsubscribe();
+                this.loading = false;
+                console.log(err);
+              }
+            }
           );
-          this.userService.userName =
-            this.userService.selectedUser.data.firstName +
-            " " +
-            this.userService.selectedUser.data.lastName;
-          this.loading = false;
-          this.router.navigate(["/dashboard"]);
         } else {
           this.snackBar.open("Invalid Credentials", "", {
             duration: 2000,

@@ -1,0 +1,42 @@
+.upload-icon  {
+  padding: 36px;
+  transform: translate(30%, -16%);
+}
+.image-upload .center img {
+  vertical-align: middle;
+    border-style: none;
+    border-radius: 50%;
+    float: left;
+    transform: translate(72%, -8%);
+}
+.reset-icon {
+  transform: translate(30%, -120%);
+}
+
+.upload-icon mat-icon {
+  color: orange;
+}
+.reset-icon mat-icon {
+  color: red;
+}
+::ng-deep span.mat-button-wrapper {
+  color: darkslategrey;
+  font-weight: bold;
+}
+
+
+.overlay {
+  position: fixed; /* Sit on top of the page content */
+  //display: none; /* Hidden by default */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}
+
+
